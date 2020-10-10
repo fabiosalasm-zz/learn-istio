@@ -1,0 +1,10 @@
+server:
+  servlet:
+    jsp:
+      registered: off
+  port: 8081
+spring:
+  application:
+    name: "address-app"
+  sleuth:
+    enabled: on

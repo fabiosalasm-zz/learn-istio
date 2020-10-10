@@ -1,0 +1,10 @@
+server:
+  servlet:
+    jsp:
+      registered: off
+  port: 8082
+spring:
+  application:
+    name: "job-app"
+  sleuth:
+    enabled: on
