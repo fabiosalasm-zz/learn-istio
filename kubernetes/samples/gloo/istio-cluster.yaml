@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-system
+---
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: istio-control-plane
+spec:
+  profile: demo
+  components:
+    ingressGateways:
+    - enabled: false
+    pilot:
+      enabled: true
+      k8s:
+        hpaSpec:
+          maxReplicas: 1
+        overlays:
+          - apiVersion: policy/v1beta1
+            kind: PodDisruptionBudget
+            name: istiod
+            patches:
+              - path: spec.minAvailable
+                value: 0
+  meshConfig:
+    outboundTrafficPolicy:
+      mode: REGISTRY_ONLY

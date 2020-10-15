@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: address-app-v2
+  labels:
+    app: address-app
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: address-app
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: address-app
+        version: v2
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+    spec:
+      containers:
+        - name: address-app
+          image: fabiosalasm/address-app:v2.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "SERVER_PORT"
+              value: "8081"
+            - name: "MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED"
+              value: "on"
+          ports:
+            - name: server-port
+              containerPort: 8081
+          resources:
+            requests:
+              cpu: 200m
+              memory: 180Mi
+            limits:
+              cpu: 300m
+              memory: 300Mi
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            timeoutSeconds: 3
+            httpGet:
+              port: server-port
+              path: /actuator/health/liveness
+              httpHeaders:
+                - name: Host
+                  value: KubernetesReadinessProbe
+          readinessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            timeoutSeconds: 3
+            httpGet:
+              port: server-port
+              path: /actuator/health/readiness
+              httpHeaders:
+                - name: Host
+                  value: KubernetesReadinessProbe

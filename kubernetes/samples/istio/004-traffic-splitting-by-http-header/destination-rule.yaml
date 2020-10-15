@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  namespace: default
+  name: address-app-dr
+  # If you don’t specify the traffic policy to ISTIO_MUTUAL, you will see 503 HTTP errors
+  #coming from the service. To check if the mutual TLS is the culprit you can use the tls-check
+  #command to see what type of authentication is defined between the caller and the destionation
+spec:
+  host: "address-app.default.svc.cluster.local"
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+    - name: v2
+      labels:
+        version: v2
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  namespace: default
+  name: job-app-dr
+  # If you don’t specify the traffic policy to ISTIO_MUTUAL, you will see 503 HTTP errors
+  #coming from the service. To check if the mutual TLS is the culprit you can use the tls-check
+  #command to see what type of authentication is defined between the caller and the destionation
+spec:
+  host: "job-app.default.svc.cluster.local"
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+    - name: v2
+      labels:
+        version: v2
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL

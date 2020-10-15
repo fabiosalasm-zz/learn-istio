@@ -1,0 +1,20 @@
+apiVersion: gloo.solo.io/v1
+kind: Upstream
+metadata:
+  name: default-company-app-8080
+  namespace: default
+spec:
+  kube:
+    selector:
+      app: company-app
+    serviceName: company-app
+    serviceNamespace: default
+    servicePort: 8080
+  sslConfig:
+    alpnProtocols:
+      - istio
+    sds:
+      certificatesSecretName: istio_server_cert
+      clusterName: gateway_proxy_sds
+      targetUri: 127.0.0.1:8234
+      validationContextName: istio_validation_context

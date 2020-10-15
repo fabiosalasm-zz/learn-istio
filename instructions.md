@@ -6,7 +6,7 @@ In case of Kind, we have customized the kubernetes cluster with the following co
 (you can see the configuration in kind-install.yaml and kind-install.sh):
 
 - Kubernetes API version: **v1.16.15** 
-  (in alignment with the latest stable version offered by GKE, which is **1.16.13-gke.401**)
+  (in alignment with the latest stable version offered by GKE, which is **1.16.13-gke.401**)r K8s learning journey with hands-on training a
 - Custom pod and service subnet (in alignment with defaults seen on GKE).
 - Cluster with only 1 node (Kind can also be configured as a multicluster)
 - Using [CALICO](https://docs.projectcalico.org/getting-started/kubernetes/) 
@@ -27,7 +27,7 @@ Where *{VERSION}* is the desired version to work with. In this case, we'll use *
 
 Next, move the installation folder to your work environment and make 
 the bin sub-folder available to your **PATH** and make it available to your console
-```
+```shell script
 $ mv ./istio-1.6.8 {CUSTOM_LOCATION}
 export PATH="$PATH:{CUSTOM_LOCATION}/istio-1.6.8/bin"
 ```
