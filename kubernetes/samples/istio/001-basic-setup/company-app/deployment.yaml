@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
+  namespace: demo
   name: company-app-v1
   labels:
     app: company-app
@@ -30,9 +30,9 @@ spec:
             - name: "MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED"
               value: "on"
             - name: "APP_ADDRESSAPPURL"
-              value: "http://address-app.default.svc.cluster.local:8081"
+              value: "http://address-app.demo.svc.cluster.local:8081"
             - name: "APP_JOBAPPURL"
-              value: "http://job-app.default.svc.cluster.local:8082"
+              value: "http://job-app.demo.svc.cluster.local:8082"
           ports:
             - name: server-port
               containerPort: 8080

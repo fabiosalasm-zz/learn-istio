@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  namespace: default
+  namespace: demo
   name: geodbapi
 spec:
   hosts:
