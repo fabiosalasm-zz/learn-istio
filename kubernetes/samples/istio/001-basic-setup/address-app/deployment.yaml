@@ -58,3 +58,8 @@ spec:
               httpHeaders:
                 - name: Host
                   value: KubernetesReadinessProbe
+          lifecycle:
+            postStart:
+              httpGet:
+                path: /healthz/ready
+                port: 15020
