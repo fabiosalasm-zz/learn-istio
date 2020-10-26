@@ -43,8 +43,8 @@ spec:
             limits:
               memory: 300Mi
           livenessProbe:
-            initialDelaySeconds: 30
-            periodSeconds: 15
+            initialDelaySeconds: 15
+            periodSeconds: 5
             timeoutSeconds: 3
             httpGet:
               port: server-port
@@ -53,8 +53,8 @@ spec:
                 - name: Host
                   value: KubernetesReadinessProbe
           readinessProbe:
-            initialDelaySeconds: 30
-            periodSeconds: 15
+            initialDelaySeconds: 15
+            periodSeconds: 5
             timeoutSeconds: 3
             httpGet:
               port: server-port

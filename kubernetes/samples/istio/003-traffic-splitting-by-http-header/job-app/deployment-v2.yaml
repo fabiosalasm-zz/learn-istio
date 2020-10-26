@@ -40,7 +40,7 @@ spec:
               memory: 300Mi
           livenessProbe:
             initialDelaySeconds: 20
-            periodSeconds: 15
+            periodSeconds: 5
             timeoutSeconds: 3
             httpGet:
               port: server-port
@@ -50,7 +50,7 @@ spec:
                   value: KubernetesReadinessProbe
           readinessProbe:
             initialDelaySeconds: 20
-            periodSeconds: 15
+            periodSeconds: 5
             timeoutSeconds: 3
             httpGet:
               port: server-port

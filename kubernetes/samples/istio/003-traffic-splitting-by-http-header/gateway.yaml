@@ -36,6 +36,10 @@ spec:
             port:
               number: 8080
             subset: v2
+          headers:
+            response:
+              set:
+                version: v2
     - name: "company-app-default-route"
       route:
         - destination:
@@ -43,6 +47,10 @@ spec:
             port:
               number: 8080
             subset: v1
+          headers:
+            response:
+              set:
+                version: v1
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule

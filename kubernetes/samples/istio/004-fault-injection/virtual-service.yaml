@@ -1,0 +1,58 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  namespace: demo
+  name: company-app-vs
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - company-app-gateway
+  http:
+    - route:
+        - destination:
+            host: "company-app.demo.svc.cluster.local"
+            port:
+              number: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  namespace: demo
+  name: address-app-vs
+spec:
+  hosts:
+    - address-app
+  http:
+    - name: "default-route"
+      route:
+        - destination:
+            host: "address-app.demo.svc.cluster.local"
+            port:
+              number: 8081
+      fault: # Inject a fault which return 503 error for 50% of the traffic
+        abort:
+          httpStatus: 503
+          percentage:
+            value: 50
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  namespace: demo
+  name: job-app-vs
+spec:
+  hosts:
+    - job-app
+  http:
+    - name: "default-route"
+      route:
+        - destination:
+            host: "job-app.demo.svc.cluster.local"
+            port:
+              number: 8082
+      fault: # Inject a delay of 5 seconds for 80% of the traffic
+        delay:
+          fixedDelay: 5s
+          percentage:
+            value: 80

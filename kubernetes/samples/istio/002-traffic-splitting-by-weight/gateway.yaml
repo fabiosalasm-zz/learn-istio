@@ -33,21 +33,26 @@ spec:
               number: 8080
             subset: v1
           weight: 90
+          headers:
+            response:
+              set:
+                version: v1
         - destination:
             host: "company-app.demo.svc.cluster.local"
             port:
               number: 8080
             subset: v2
           weight: 10
+          headers:
+            response:
+              set:
+                version: v2
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   namespace: demo
   name: company-app-dr
-  # If you don’t specify the traffic policy to ISTIO_MUTUAL, you will see 503 HTTP errors
-  #coming from the service. To check if the mutual TLS is the culprit you can use the tls-check
-  #command to see what type of authentication is defined between the caller and the destionation
 spec:
   host: "company-app.demo.svc.cluster.local"
   subsets:
@@ -57,6 +62,3 @@ spec:
     - name: v2
       labels:
         version: v2
-  trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL

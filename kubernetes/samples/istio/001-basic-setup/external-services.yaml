@@ -10,10 +10,12 @@ spec:
     - number: 80
       name: http
       protocol: HTTP
-  # Posible values: NONE, STATIC OR DNS. We're using DNS bc we want the proxy to attempt to resolve the IP address of the host
+  exportTo: # COPIAR A OTROS EJEMPLOS
+    - "."
+  # Possible values: NONE, STATIC OR DNS. We're using DNS bc we want the proxy to attempt to resolve the IP address of the host
   # STATIC will be used if we specify an IP address on 'hosts'
   resolution: DNS
-  # Posible values: MESH_INTERNAL, MESH_EXTERNAL.
+  # Possible values: MESH_INTERNAL, MESH_EXTERNAL.
   # We're using MESH_EXTERNAL bc this is an external service that is consumed through the API.
   # MESH_INTERNAL is used to specify services running inside our infrastructure but are not part of our cluster/mesh
   location: MESH_EXTERNAL

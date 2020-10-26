@@ -1,11 +1,13 @@
+# We dont specify trafficPolicy's configuration (tls.mode) because we've already configured
+# mTLS mode across the entire cluster in the file 'auth-policy-config.yaml'
+# To recap: There are two ways to enforce mTLS: by using PeerAuthentication
+#  (cluster level, namespace level and workload/selector level)
+# and by trafficPolicy in DestinationRule
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   namespace: demo
   name: address-app-dr
-  # If you don’t specify the traffic policy to ISTIO_MUTUAL, you will see 503 HTTP errors
-  #coming from the service. To check if the mutual TLS is the culprit you can use the tls-check
-  #command to see what type of authentication is defined between the caller and the destionation
 spec:
   host: "address-app.demo.svc.cluster.local"
   subsets:
@@ -15,18 +17,12 @@ spec:
     - name: v2
       labels:
         version: v2
-  trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   namespace: demo
   name: job-app-dr
-  # If you don’t specify the traffic policy to ISTIO_MUTUAL, you will see 503 HTTP errors
-  #coming from the service. To check if the mutual TLS is the culprit you can use the tls-check
-  #command to see what type of authentication is defined between the caller and the destionation
 spec:
   host: "job-app.demo.svc.cluster.local"
   subsets:
@@ -36,6 +32,3 @@ spec:
     - name: v2
       labels:
         version: v2
-  trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL

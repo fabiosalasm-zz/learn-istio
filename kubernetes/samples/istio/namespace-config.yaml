@@ -3,5 +3,4 @@ kind: Namespace
 metadata:
   labels:
     istio-injection: enabled
-    missionlane.com/managed-state: infra
   name: demo

@@ -1,3 +1,4 @@
+# Here we're enabling mTLS across all the cluster (the namespace 'istio-system' (root) is the key)
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
